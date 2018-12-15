@@ -30,6 +30,6 @@ public class FeedController
 	@GetMapping("/{urls}/{limit}")
 	Flux<FeedEntry> getFeeds(@PathVariable String[] urls, @PathVariable int limit)
 	{
-		return Flux.fromArray(urls).map(url -> URI.create(url)).flatMap(uri -> client.getFeed(uri)).sort(FeedEntry.COMPARATOR).take(limit);
+		return Flux.fromArray(urls).flatMap(url -> client.getFeed(URI.create(url))).sort(FeedEntry.COMPARATOR).take(limit);
 	}
 }

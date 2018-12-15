@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
@@ -73,6 +72,7 @@ public class FeedClient
 
 			entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
 		}
+
 		return entries;
 	}
 
@@ -83,8 +83,7 @@ public class FeedClient
 		final JSONObject channel = root.getJSONObject("rss").getJSONObject("channel");
 		final String author = channel.getString("title");
 
-		final JSONArray jsonArray = channel.getJSONArray("item");
-		for (final Object entry : jsonArray)
+		for (final Object entry : channel.getJSONArray("item"))
 		{
 			final String link = ((JSONObject) entry).getString("link");
 			final String title = ((JSONObject) entry).getString("title");
