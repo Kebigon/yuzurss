@@ -14,12 +14,20 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/feed")
 public class FeedController
 {
+	private static final int DEFAULT_LIMIT = 10;
+
 	@Autowired
 	private FeedClient client;
 
 	@GetMapping("/{urls}")
 	Flux<FeedEntry> getFeeds(@PathVariable String[] urls)
 	{
-		return Flux.fromArray(urls).map(url -> URI.create(url)).flatMap(uri -> client.getFeed(uri)).sort(FeedEntry.COMPARATOR);
+		return getFeeds(urls, DEFAULT_LIMIT);
+	}
+
+	@GetMapping("/{urls}/{limit}")
+	Flux<FeedEntry> getFeeds(@PathVariable String[] urls, @PathVariable int limit)
+	{
+		return Flux.fromArray(urls).map(url -> URI.create(url)).flatMap(uri -> client.getFeed(uri)).sort(FeedEntry.COMPARATOR).take(limit);
 	}
 }
