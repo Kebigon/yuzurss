@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
@@ -30,6 +31,7 @@ public class FeedClient
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
+	@Cacheable("feeds")
 	public Flux<FeedEntry> getFeed(URI uri)
 	{
 		final WebClient client = WebClient.create();
@@ -50,7 +52,7 @@ public class FeedClient
 				log.info("Exception while parsing {}", uri, e);
 				return Flux.empty();
 			}
-		});
+		}).cache();
 	}
 
 	private static boolean isAtom(JSONObject root)
