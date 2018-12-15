@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/feed")
+@CrossOrigin
 public class FeedController
 {
 	private static final int DEFAULT_LIMIT = 10;
