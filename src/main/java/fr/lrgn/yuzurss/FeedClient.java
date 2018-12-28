@@ -1,12 +1,7 @@
 package fr.lrgn.yuzurss;
 
 import java.net.URI;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 import org.slf4j.Logger;
@@ -17,18 +12,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
+import fr.lrgn.yuzurss.exception.NoParserFoundException;
+import fr.lrgn.yuzurss.parser.AtomFeedParser;
+import fr.lrgn.yuzurss.parser.FeedParser;
+import fr.lrgn.yuzurss.parser.RSSFeedParser;
 import reactor.core.publisher.Flux;
 
 @Component
 public class FeedClient
 {
-	private static final String ATOM_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX"; // 2018-11-03T18:12:15+00:00
-	private static final String RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss Z"; // Sun, 09 Dec 2018 09:22:00 +0000
-
-	private final SimpleDateFormat atomDateFormat = new SimpleDateFormat(ATOM_DATE_FORMAT);
-	private final SimpleDateFormat rssDateFormat = new SimpleDateFormat(RSS_DATE_FORMAT, Locale.ROOT);
-
 	private final Logger log = LoggerFactory.getLogger(getClass());
+
+	private final FeedParser[] parsers = new FeedParser[] { new AtomFeedParser(), new RSSFeedParser() };
 
 	@Cacheable("feeds")
 	public Flux<FeedEntry> getFeed(URI uri)
@@ -37,6 +32,8 @@ public class FeedClient
 		final RequestHeadersSpec<?> request = client.get().uri(uri);
 		final ResponseSpec response = request.retrieve();
 
+		log.info("Downloading {}", uri);
+
 		return response.bodyToMono(String.class).flatMapMany(xml -> {
 			log.info("Downloaded {}", uri);
 
@@ -44,9 +41,9 @@ public class FeedClient
 
 			try
 			{
-				return isAtom(root) ? parseAtomFeed(root) : parseRSSFeed(root);
+				return getFeedParser(uri, root).parseFeed(root);
 			}
-			catch (final JSONException | ParseException e)
+			catch (final Throwable e)
 			{
 				log.info("Exception while parsing {}", uri, e);
 				return Flux.empty();
@@ -54,44 +51,12 @@ public class FeedClient
 		}).cache();
 	}
 
-	private static boolean isAtom(JSONObject root)
+	private FeedParser getFeedParser(URI uri, JSONObject root)
 	{
-		return root.has("feed");
-	}
+		for (final FeedParser parser : parsers)
+			if (parser.acceptFeed(root))
+				return parser;
 
-	private Flux<FeedEntry> parseAtomFeed(JSONObject root) throws JSONException, ParseException
-	{
-		Flux<FeedEntry> entries = Flux.empty();
-
-		for (final Object entry : root.getJSONObject("feed").getJSONArray("entry"))
-		{
-			final String author = ((JSONObject) entry).getJSONObject("author").getString("name");
-			final String link = ((JSONObject) entry).getJSONObject("link").getString("href");
-			final String title = ((JSONObject) entry).getString("title");
-			final Date published = atomDateFormat.parse(((JSONObject) entry).getString("published"));
-
-			entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
-		}
-
-		return entries;
-	}
-
-	private Flux<FeedEntry> parseRSSFeed(JSONObject root) throws JSONException, ParseException
-	{
-		Flux<FeedEntry> entries = Flux.empty();
-
-		final JSONObject channel = root.getJSONObject("rss").getJSONObject("channel");
-		final String author = channel.getString("title");
-
-		for (final Object entry : channel.getJSONArray("item"))
-		{
-			final String link = ((JSONObject) entry).getString("link");
-			final String title = ((JSONObject) entry).getString("title");
-			final Date published = rssDateFormat.parse(((JSONObject) entry).getString("pubDate"));
-
-			entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
-		}
-
-		return entries;
+		throw new NoParserFoundException(uri);
 	}
 }
