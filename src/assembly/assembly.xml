@@ -30,7 +30,16 @@
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
+			<outputDirectory>ext</outputDirectory>
+			<excludes>
+				<exclude>fr.lrgn:yuzurss</exclude>
+			</excludes>
+		</dependencySet>
+		<dependencySet>
 			<outputDirectory>lib</outputDirectory>
+			<includes>
+				<include>fr.lrgn:yuzurss</include>
+			</includes>
 		</dependencySet>
 	</dependencySets>
 </assembly>
