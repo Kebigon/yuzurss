@@ -25,11 +25,14 @@ public class YuzuRssApplicationTests
 {
 	private static final String RSS_PATH = "/rss.xml";
 	private static final String RSS_RESPONSE = "<rss><channel><title>rss_feed</title><item><link>rss_link1</link><title>rss_title1</title><pubDate>Sun, 09 Dec 2018 09:22:00 +0000</pubDate></item><item><link>rss_link2</link><title>rss_title2</title><pubDate>Fri, 19 Oct 2018 21:49:54 +0000</pubDate></item></channel></rss>";
+	private static final String RDF_PATH = "/rdf.xml";
+	private static final String RDF_RESPONSE = "<rdf:RDF><channel><title>rdf_feed</title></channel><item><link>rdf_link1</link><title>rdf_title1</title><dc:date>2019-01-06T14:18:00+09:00</dc:date></item><item><link>rdf_link2</link><title>rdf_title2</title><dc:date>2019-01-06T16:51:00+09:00</dc:date></item></rdf:RDF>";
 	private static final String ATOM_PATH = "/atom.xml";
 	private static final String ATOM_RESPONSE = "<feed><entry><author><name>atom_feed</name></author><link><href>atom_link1</href></link><title>atom_title1</title><published>2018-11-03T18:12:15+00:00</published></entry><entry><author><name>atom_feed</name></author><link><href>atom_link2</href></link><title>atom_title2</title><published>2018-10-30T18:12:15+00:00</published></entry></feed>";
 
 	private static final String ATOM_RESULT = "[{\"title\":\"atom_title1\",\"link\":\"atom_link1\",\"published\":\"2018-11-03T18:12:15.000+0000\",\"author\":\"atom_feed\"},{\"title\":\"atom_title2\",\"link\":\"atom_link2\",\"published\":\"2018-10-30T18:12:15.000+0000\",\"author\":\"atom_feed\"}]";
 	private static final String RSS_RESULT = "[{\"title\":\"rss_title1\",\"link\":\"rss_link1\",\"published\":\"2018-12-09T09:22:00.000+0000\",\"author\":\"rss_feed\"},{\"title\":\"rss_title2\",\"link\":\"rss_link2\",\"published\":\"2018-10-19T21:49:54.000+0000\",\"author\":\"rss_feed\"}]";
+	private static final String RDF_RESULT = "[{\"title\":\"rdf_title2\",\"link\":\"rdf_link2\",\"published\":\"2019-01-06T07:51:00.000+0000\",\"author\":\"rdf_feed\"},{\"title\":\"rdf_title1\",\"link\":\"rdf_link1\",\"published\":\"2019-01-06T05:18:00.000+0000\",\"author\":\"rdf_feed\"}]";
 	private static final String ATOM_RSS_RESULT = "[{\"title\":\"rss_title1\",\"link\":\"rss_link1\",\"published\":\"2018-12-09T09:22:00.000+0000\",\"author\":\"rss_feed\"},{\"title\":\"atom_title1\",\"link\":\"atom_link1\",\"published\":\"2018-11-03T18:12:15.000+0000\",\"author\":\"atom_feed\"},{\"title\":\"atom_title2\",\"link\":\"atom_link2\",\"published\":\"2018-10-30T18:12:15.000+0000\",\"author\":\"atom_feed\"},{\"title\":\"rss_title2\",\"link\":\"rss_link2\",\"published\":\"2018-10-19T21:49:54.000+0000\",\"author\":\"rss_feed\"}]";
 
 	@Autowired
@@ -50,6 +53,8 @@ public class YuzuRssApplicationTests
 				{
 					case RSS_PATH:
 						return new MockResponse().setBody(RSS_RESPONSE);
+					case RDF_PATH:
+						return new MockResponse().setBody(RDF_RESPONSE);
 					case ATOM_PATH:
 						return new MockResponse().setBody(ATOM_RESPONSE);
 				}
@@ -79,6 +84,17 @@ public class YuzuRssApplicationTests
 
 		webClient.post().uri("/feed").body(BodyInserters.fromObject(body)).exchange().expectStatus().isOk().expectBody(String.class)
 				.isEqualTo(ATOM_RESULT);
+	}
+
+	@Test
+	public void testRdfFeed() throws UnsupportedEncodingException
+	{
+		final ArrayList<String> urls = new ArrayList<String>();
+		urls.add("http://127.0.0.1:" + server.getPort() + "/rdf.xml");
+		final FeedRequestBody body = new FeedRequestBody(urls, 10);
+
+		webClient.post().uri("/feed").body(BodyInserters.fromObject(body)).exchange().expectStatus().isOk().expectBody(String.class)
+				.isEqualTo(RDF_RESULT);
 	}
 
 	@Test

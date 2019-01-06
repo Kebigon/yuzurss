@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 import fr.lrgn.yuzurss.exception.NoParserFoundException;
 import fr.lrgn.yuzurss.parser.AtomFeedParser;
 import fr.lrgn.yuzurss.parser.FeedParser;
+import fr.lrgn.yuzurss.parser.RDFFeedParser;
 import fr.lrgn.yuzurss.parser.RSSFeedParser;
 import reactor.core.publisher.Flux;
 
@@ -23,7 +24,7 @@ public class FeedClient
 {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	private final FeedParser[] parsers = new FeedParser[] { new AtomFeedParser(), new RSSFeedParser() };
+	private final FeedParser[] parsers = new FeedParser[] { new AtomFeedParser(), new RDFFeedParser(), new RSSFeedParser() };
 
 	@Cacheable("feeds")
 	public Flux<FeedEntry> getFeed(URI uri)
