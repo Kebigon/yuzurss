@@ -34,19 +34,22 @@ public class RSSFeedParser extends FeedParser
 	public Flux<FeedEntry> parseFeed(JSONObject root)
 	{
 		Flux<FeedEntry> entries = Flux.empty();
-
 		final JSONObject channel = root.getJSONObject("rss").getJSONObject("channel");
-		final String author = channel.getString("title");
 
-		for (final Object entry : channel.getJSONArray("item"))
+		if (channel.has("item"))
 		{
-			log.debug("Parsing entry {}", entry);
+			final String author = channel.getString("title");
 
-			final String link = ((JSONObject) entry).getString("link");
-			final String title = ((JSONObject) entry).getString("title");
-			final Date published = parseDate(((JSONObject) entry).getString("pubDate"));
+			for (final Object entry : channel.getJSONArray("item"))
+			{
+				log.debug("Parsing entry {}", entry);
 
-			entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
+				final String link = ((JSONObject) entry).getString("link");
+				final String title = ((JSONObject) entry).getString("title");
+				final Date published = parseDate(((JSONObject) entry).getString("pubDate"));
+
+				entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
+			}
 		}
 
 		return entries;

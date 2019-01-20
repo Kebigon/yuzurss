@@ -33,17 +33,21 @@ public class AtomFeedParser extends FeedParser
 	public Flux<FeedEntry> parseFeed(JSONObject root)
 	{
 		Flux<FeedEntry> entries = Flux.empty();
+		final JSONObject feed = root.optJSONObject("feed");
 
-		for (final Object entry : root.getJSONObject("feed").getJSONArray("entry"))
+		if (feed != null)
 		{
-			log.debug("Parsing entry {}", entry);
+			for (final Object entry : feed.getJSONArray("entry"))
+			{
+				log.debug("Parsing entry {}", entry);
 
-			final String author = ((JSONObject) entry).getJSONObject("author").getString("name");
-			final String link = ((JSONObject) entry).getJSONObject("link").getString("href");
-			final String title = ((JSONObject) entry).getString("title");
-			final Date published = parseDate(((JSONObject) entry).getString("published"));
+				final String author = ((JSONObject) entry).getJSONObject("author").getString("name");
+				final String link = ((JSONObject) entry).getJSONObject("link").getString("href");
+				final String title = ((JSONObject) entry).getString("title");
+				final Date published = parseDate(((JSONObject) entry).getString("published"));
 
-			entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
+				entries = entries.mergeWith(Flux.just(new FeedEntry(title, link, published, author)));
+			}
 		}
 
 		return entries;
