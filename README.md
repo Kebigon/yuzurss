@@ -1,9 +1,9 @@
 # YuzuRSS
-RSS aggregator microservice based on Spring Webflux
+Feed aggregator microservice based on Spring
 
 ## Usage
 
-Just send a POST request to /feed/, with in the body of the request a JSON object with the below:
+Just send a POST request, with in the body of the request a JSON object with the below:
 
 | Parameter | Description                                 |
 | --------- | ------------------------------------------- |
@@ -12,10 +12,10 @@ Just send a POST request to /feed/, with in the body of the request a JSON objec
 
 Example:
 
-	POST http://5.39.83.109:8091/feed/
+	POST http://5.39.83.109:15866
 
 	{
-		"limit": 20,
+		"limit": 2,
 		"urls": [
 			"https://www.youtube.com/feeds/videos.xml?user=epenser1",
 			"https://www.youtube.com/feeds/videos.xml?user=scilabus",
@@ -23,28 +23,31 @@ Example:
 		]
 	}
 
-The response will be a JSON list of entry, with the below:
-
-| Parameter | Description                                                            |
-| --------- | ---------------------------------------------------------------------- |
-| title     | Title of the entry                                                     |
-| link      | Link to open the content of the entry                                  |
-| published | Time the entry has been published, format 2019-01-27T09:40:02.000+0000 |
-| author    | Name of the author of the entry                                        |
+The response will be a [JSON Feed](https://jsonfeed.org/version/1):
 
 Example:
 
-	[
-		{
-			"title": "\"Métaphysique et Zététique\" Entretien Sceptique avec Sardoche",
-			"link": "https://www.youtube.com/watch?v=WxNQp0fDFg0",
-			"published": "2019-01-27T09:40:02.000+0000",
-			"author": "La Tronche en Biais"
-		},
-		{
-			"title": "#06 L'odorat, partie 2 - Les sens humains - e-penser",
-			"link": "https://www.youtube.com/watch?v=VQjutS-MBUc",
-			"published": "2019-01-20T14:05:57.000+0000",
-			"author": "e-penser"
-		}
-	]
+	{
+		"version": "https://jsonfeed.org/version/1",
+		"title": "YuzuRSS aggregated feed",
+		"items": [
+			{
+				"id": "yt:video:C9bLMf6Q-qk",
+				"url": "https://invidio.us/watch?v=C9bLMf6Q-qk",
+				"title": "Pour en finir avec l'homéopathie - Tronche de Fake 4.8",
+				"author": {
+					"name": "La Tronche en Biais"
+				},
+				"date_published": "2020-01-23T10:43:08.000Z"
+			},
+			{
+				"id": "yt:video:hJe5MDMWOaU",
+				"url": "https://invidio.us/watch?v=hJe5MDMWOaU",
+				"title": "Les trous noirs (1/2) - 48 - e-penser",
+				"author": {
+					"name": "e-penser"
+				},
+				"date_published": "2020-01-23T08:09:43.000Z"
+			}
+		]
+	}

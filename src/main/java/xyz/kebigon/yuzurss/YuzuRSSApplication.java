@@ -1,15 +1,15 @@
-package fr.lrgn.yuzurss;
+package xyz.kebigon.yuzurss;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
-@SpringBootApplication
 @EnableCaching
-public class YuzuRssApplication
+@SpringBootApplication
+public class YuzuRSSApplication
 {
 	public static void main(String[] args)
 	{
-		SpringApplication.run(YuzuRssApplication.class, args);
+		SpringApplication.run(YuzuRSSApplication.class, args);
 	}
 }
