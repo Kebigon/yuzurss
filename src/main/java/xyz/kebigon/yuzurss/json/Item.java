@@ -43,6 +43,8 @@ public class Item implements Comparable<Item>
 			summary = sanitize(entry.getDescription().getValue());
 		if (entry.getPublishedDate() != null)
 			this.datePublished = entry.getPublishedDate();
+		else if (entry.getUpdatedDate() != null)
+			this.datePublished = entry.getUpdatedDate();
 		if (!entry.getAuthor().isEmpty())
 			this.author = new Author(entry.getAuthor());
 

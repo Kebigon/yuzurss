@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:https://github.com/beemdevelopment/Aegis/releases</id>
+  <link type="text/html" rel="alternate" href="https://github.com/beemdevelopment/Aegis/releases"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/beemdevelopment/Aegis/releases.atom"/>
+  <title>Release notes from Aegis</title>
+  <updated>2020-01-22T19:48:40Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.1.4</id>
+    <updated>2020-01-23T09:47:25Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.4"/>
+    <title>v1.1.4</title>
+    <content type="html">&lt;p&gt;This is a minor release.&lt;/p&gt;
+&lt;h2&gt;Fixed bugs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The export filename was missing the &quot;.json&quot; extension in some cases&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The APK released to the Play Store has &lt;code&gt;versionCode&lt;/code&gt; set to 29 instead of 28, because the update had to be resubmitted due to an erroneous rejection by Google.&lt;/p&gt;</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.1.3</id>
+    <updated>2020-01-20T20:42:14Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.3"/>
+    <title>v1.1.3</title>
+    <content type="html">&lt;p&gt;This is a minor release.&lt;/p&gt;
+&lt;h2&gt;New features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Password reminder for users who use biometric unlock&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Fixed bugs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Tokens would not refresh in some rare cases&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Expect an automatic backup feature to be released soon!&lt;/p&gt;</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.1.2</id>
+    <updated>2020-01-18T13:49:25Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.2"/>
+    <title>v1.1.2</title>
+    <content type="html">&lt;h2&gt;New features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ability to select multiple entries&lt;/li&gt;
+&lt;li&gt;Ability to select a file location when exporting the vault (including cloud providers like Google Drive)&lt;/li&gt;
+&lt;li&gt;Explanation and warning for the security options&lt;/li&gt;
+&lt;li&gt;Removed external storage permissions&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.1.1</id>
+    <updated>2020-01-04T12:06:37Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.1"/>
+    <title>v1.1.1</title>
+    <content type="html">&lt;h2&gt;Fixed bugs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Exporting the vault did not work on Android 10&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.1</id>
+    <updated>2020-01-03T13:22:07Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.1"/>
+    <title>v1.1</title>
+    <content type="html">&lt;h2&gt;New features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Support for other types of biometric authentication (i.e. Pixel 4 face unlock)&lt;/li&gt;
+&lt;li&gt;Support for importing from WinAuth&lt;/li&gt;
+&lt;li&gt;Support for Chromebooks&lt;/li&gt;
+&lt;li&gt;Option to highlight entries when tapped&lt;/li&gt;
+&lt;li&gt;Filter for ungrouped tokens&lt;/li&gt;
+&lt;li&gt;Ability to search for token account names&lt;/li&gt;
+&lt;li&gt;Simplified Chinese translation (thanks RunningMelos!)&lt;/li&gt;
+&lt;li&gt;Updated translations (thanks to all Crowdin contributors!)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Fixed bugs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The behavior of highlighting and revealing entries was inconsistent&lt;/li&gt;
+&lt;li&gt;The changelog dialog didn&#39;t work&lt;/li&gt;
+&lt;li&gt;The persistent notification was shown even after the app was killed&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.1-beta1</id>
+    <updated>2019-12-24T14:10:55Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.1-beta1"/>
+    <title>v1.1-beta1</title>
+    <content type="html">&lt;h2&gt;New features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Support for other types of biometric authentication (i.e. Pixel 4 face unlock)&lt;/li&gt;
+&lt;li&gt;Support for importing from WinAuth&lt;/li&gt;
+&lt;li&gt;Support for Chromebooks&lt;/li&gt;
+&lt;li&gt;Option to highlight entries when tapped&lt;/li&gt;
+&lt;li&gt;Filter for ungrouped tokens&lt;/li&gt;
+&lt;li&gt;Ability to search for token account names&lt;/li&gt;
+&lt;li&gt;Simplified Chinese translation (thanks RunningMelos!)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Fixed bugs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The behavior of highlighting and revealing entries was inconsistent&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.0.3</id>
+    <updated>2019-12-05T17:55:44Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.0.3"/>
+    <title>v1.0.3</title>
+    <content>No content.</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.0.2</id>
+    <updated>2019-09-11T06:56:29Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.0.2"/>
+    <title>v1.0.2</title>
+    <content>No content.</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.0.1</id>
+    <updated>2019-09-11T06:55:48Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.0.1"/>
+    <title>v1.0.1</title>
+    <content>No content.</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/65757761/v1.0</id>
+    <updated>2019-09-08T12:29:13Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/beemdevelopment/Aegis/releases/tag/v1.0"/>
+    <title>v1.0</title>
+    <content>No content.</content>
+    <author>
+      <name>alexbakker</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars1.githubusercontent.com/u/2387841?s=60&amp;v=4"/>
+  </entry>
+</feed>

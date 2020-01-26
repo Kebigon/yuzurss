@@ -69,6 +69,48 @@ public class ItemTests
 	}
 
 	@Test
+	public void testGithubFeed() throws IllegalArgumentException, FeedException, IOException
+	{
+		final SyndFeedInput input = new SyndFeedInput();
+		final SyndFeed feed = input.build(new XmlReader(getClass().getResource("/github.xml")));
+
+		final Author author = new Author("alexbakker");
+
+		final Item item0 = new Item(feed.getEntries().get(0));
+		assertEquals("tag:github.com,2008:Repository/65757761/v1.1.4", item0.getId());
+		assertEquals("https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.4", item0.getUrl());
+		assertEquals("v1.1.4", item0.getTitle());
+		assertEquals(
+				"<p>This is a minor release.</p>\n<h2>Fixed bugs</h2>\n<ul>\n<li>The export filename was missing the \".json\" extension in some cases</li>\n</ul>\n<p>The APK released to the Play Store has <code>versionCode</code> set to 29 instead of 28, because the update had to be resubmitted due to an erroneous rejection by Google.</p>",
+				item0.getContentHtml());
+		assertEquals(null, item0.getSummary());
+		assertEquals("2020-01-23T09:47:25.000Z", dateFormat.format(item0.getDatePublished()));
+		assertEquals(author, item0.getAuthor());
+
+		final Item item1 = new Item(feed.getEntries().get(1));
+		assertEquals("tag:github.com,2008:Repository/65757761/v1.1.3", item1.getId());
+		assertEquals("https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.3", item1.getUrl());
+		assertEquals("v1.1.3", item1.getTitle());
+		assertEquals(
+				"<p>This is a minor release.</p>\n<h2>New features</h2>\n<ul>\n<li>Password reminder for users who use biometric unlock</li>\n</ul>\n<h2>Fixed bugs</h2>\n<ul>\n<li>Tokens would not refresh in some rare cases</li>\n</ul>\n<p>Expect an automatic backup feature to be released soon!</p>",
+				item1.getContentHtml());
+		assertEquals(null, item1.getSummary());
+		assertEquals("2020-01-20T20:42:14.000Z", dateFormat.format(item1.getDatePublished()));
+		assertEquals(author, item1.getAuthor());
+
+		final Item item2 = new Item(feed.getEntries().get(2));
+		assertEquals("tag:github.com,2008:Repository/65757761/v1.1.2", item2.getId());
+		assertEquals("https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.2", item2.getUrl());
+		assertEquals("v1.1.2", item2.getTitle());
+		assertEquals(
+				"<h2>New features</h2>\n<ul>\n<li>Ability to select multiple entries</li>\n<li>Ability to select a file location when exporting the vault (including cloud providers like Google Drive)</li>\n<li>Explanation and warning for the security options</li>\n<li>Removed external storage permissions</li>\n</ul>",
+				item2.getContentHtml());
+		assertEquals(null, item2.getSummary());
+		assertEquals("2020-01-18T13:49:25.000Z", dateFormat.format(item2.getDatePublished()));
+		assertEquals(author, item2.getAuthor());
+	}
+
+	@Test
 	public void testSuumoFeed() throws IllegalArgumentException, FeedException, IOException
 	{
 		final SyndFeedInput input = new SyndFeedInput();
