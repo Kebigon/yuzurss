@@ -33,7 +33,8 @@ public class FeedClient
 			try
 			{
 				return input.build(new XmlReader(response.getBody()));
-			} catch (IllegalArgumentException | FeedException e)
+			}
+			catch (IllegalArgumentException | FeedException e)
 			{
 				throw new IOException(e);
 			}

@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
 import xyz.kebigon.yuzurss.json.Feed;
 import xyz.kebigon.yuzurss.json.Item;
 
 @RestController
 @CrossOrigin
-@Slf4j
 public class FeedController
 {
 	@Autowired

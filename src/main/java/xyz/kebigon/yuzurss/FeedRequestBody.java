@@ -10,17 +10,15 @@ import lombok.Data;
 @Data
 public class FeedRequestBody
 {
-	public static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
-
-	public static final String DATE_FORMAT_TINEZONE = "UTC";
+	private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
+	private static final String DATE_FORMAT_TINEZONE = "UTC";
 
 	private List<String> urls;
-
 	private Integer limit;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT_PATTERN, timezone = DATE_FORMAT_TINEZONE)
 	private Date dateBefore;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT_PATTERN, timezone = DATE_FORMAT_TINEZONE)
 	private Date dateAfter;
 }
