@@ -30,7 +30,7 @@ public class ItemTests
 
 		final Author author = new Author("{\"twitter\"=>\"getbootstrap\"}");
 
-		final Item item0 = new Item(feed.getEntries().get(0));
+		final Item item0 = new Item(feed.getEntries().get(0), feed);
 		assertEquals("https://blog.getbootstrap.com/2019/12/14/bootstrap-icons-alpha2", item0.getId());
 		assertEquals("https://blog.getbootstrap.com/2019/12/14/bootstrap-icons-alpha2/", item0.getUrl());
 		assertEquals("Bootstrap Icons Alpha 2", item0.getTitle());
@@ -43,7 +43,7 @@ public class ItemTests
 		assertEquals("2019-12-14T00:00:00.000Z", dateFormat.format(item0.getDatePublished()));
 		assertEquals(author, item0.getAuthor());
 
-		final Item item1 = new Item(feed.getEntries().get(1));
+		final Item item1 = new Item(feed.getEntries().get(1), feed);
 		assertEquals("https://blog.getbootstrap.com/2019/11/28/bootstrap-4-4-1", item1.getId());
 		assertEquals("https://blog.getbootstrap.com/2019/11/28/bootstrap-4-4-1/", item1.getUrl());
 		assertEquals("Bootstrap 4.4.1", item1.getTitle());
@@ -54,7 +54,7 @@ public class ItemTests
 		assertEquals("2019-11-28T00:00:00.000Z", dateFormat.format(item1.getDatePublished()));
 		assertEquals(author, item1.getAuthor());
 
-		final Item item2 = new Item(feed.getEntries().get(2));
+		final Item item2 = new Item(feed.getEntries().get(2), feed);
 		assertEquals("https://blog.getbootstrap.com/2019/11/26/bootstrap-4-4-0", item2.getId());
 		assertEquals("https://blog.getbootstrap.com/2019/11/26/bootstrap-4-4-0/", item2.getUrl());
 		assertEquals("Bootstrap 4.4.0", item2.getTitle());
@@ -76,7 +76,7 @@ public class ItemTests
 
 		final Author author = new Author("alexbakker");
 
-		final Item item0 = new Item(feed.getEntries().get(0));
+		final Item item0 = new Item(feed.getEntries().get(0), feed);
 		assertEquals("tag:github.com,2008:Repository/65757761/v1.1.4", item0.getId());
 		assertEquals("https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.4", item0.getUrl());
 		assertEquals("v1.1.4", item0.getTitle());
@@ -87,7 +87,7 @@ public class ItemTests
 		assertEquals("2020-01-23T09:47:25.000Z", dateFormat.format(item0.getDatePublished()));
 		assertEquals(author, item0.getAuthor());
 
-		final Item item1 = new Item(feed.getEntries().get(1));
+		final Item item1 = new Item(feed.getEntries().get(1), feed);
 		assertEquals("tag:github.com,2008:Repository/65757761/v1.1.3", item1.getId());
 		assertEquals("https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.3", item1.getUrl());
 		assertEquals("v1.1.3", item1.getTitle());
@@ -98,7 +98,7 @@ public class ItemTests
 		assertEquals("2020-01-20T20:42:14.000Z", dateFormat.format(item1.getDatePublished()));
 		assertEquals(author, item1.getAuthor());
 
-		final Item item2 = new Item(feed.getEntries().get(2));
+		final Item item2 = new Item(feed.getEntries().get(2), feed);
 		assertEquals("tag:github.com,2008:Repository/65757761/v1.1.2", item2.getId());
 		assertEquals("https://github.com/beemdevelopment/Aegis/releases/tag/v1.1.2", item2.getUrl());
 		assertEquals("v1.1.2", item2.getTitle());
@@ -116,32 +116,34 @@ public class ItemTests
 		final SyndFeedInput input = new SyndFeedInput();
 		final SyndFeed feed = input.build(new XmlReader(getClass().getResource("/suumo.xml")));
 
-		final Item item0 = new Item(feed.getEntries().get(0));
+		final Author author = new Author("SUUMO(スーモ)");
+
+		final Item item0 = new Item(feed.getEntries().get(0), feed);
 		assertEquals("https://suumo.jp/jj/bukken/shosai/JJ010FJ100/?ar=030&bs=021&nc=93385930&ta=12&sc=12234", item0.getId());
 		assertEquals("https://suumo.jp/jj/bukken/shosai/JJ010FJ100/?ar=030&bs=021&nc=93385930&ta=12&sc=12234", item0.getUrl());
 		assertEquals("物件名：自然の中に佇む、南房総の家", item0.getTitle());
 		assertEquals("千葉県南房総市山田990万円ＪＲ内房線岩井623m&sup2;（登記）60.45m&sup2;（登記）1LDK1998年10月", item0.getContentHtml());
 		assertEquals("千葉県南房総市山田990万円ＪＲ内房線岩井623m&sup2;（登記）60.45m&sup2;（登記）1LDK1998年10月", item0.getSummary());
 		assertEquals(null, item0.getDatePublished());
-		assertEquals(null, item0.getAuthor());
+		assertEquals(author, item0.getAuthor());
 
-		final Item item1 = new Item(feed.getEntries().get(1));
+		final Item item1 = new Item(feed.getEntries().get(1), feed);
 		assertEquals("https://suumo.jp/jj/bukken/shosai/JJ010FJ100/?ar=030&bs=021&nc=93373816&ta=11&sc=11242", item1.getId());
 		assertEquals("https://suumo.jp/jj/bukken/shosai/JJ010FJ100/?ar=030&bs=021&nc=93373816&ta=11&sc=11242", item1.getUrl());
 		assertEquals("物件名：大字高萩（武蔵高萩駅） 1180万円", item1.getTitle());
 		assertEquals("埼玉県日高市大字高萩1180万円ＪＲ川越線武蔵高萩徒歩9分110.18m&sup2;（登記）87.58m&sup2;（登記）4LDK1980年2月", item1.getContentHtml());
 		assertEquals("埼玉県日高市大字高萩1180万円ＪＲ川越線武蔵高萩徒歩9分110.18m&sup2;（登記）87.58m&sup2;（登記）4LDK1980年2月", item1.getSummary());
 		assertEquals(null, item1.getDatePublished());
-		assertEquals(null, item1.getAuthor());
+		assertEquals(author, item1.getAuthor());
 
-		final Item item2 = new Item(feed.getEntries().get(2));
+		final Item item2 = new Item(feed.getEntries().get(2), feed);
 		assertEquals("https://suumo.jp/jj/bukken/shosai/JJ010FJ100/?ar=030&bs=021&nc=93403901&ta=10&sc=10201", item2.getId());
 		assertEquals("https://suumo.jp/jj/bukken/shosai/JJ010FJ100/?ar=030&bs=021&nc=93403901&ta=10&sc=10201", item2.getUrl());
 		assertEquals("物件名：前橋市上細井町　中古戸建", item2.getTitle());
 		assertEquals("群馬県前橋市上細井町1750万円上毛電鉄三俣徒歩38分202.5m&sup2;110.13m&sup2;4LDK2010年9月", item2.getContentHtml());
 		assertEquals("群馬県前橋市上細井町1750万円上毛電鉄三俣徒歩38分202.5m&sup2;110.13m&sup2;4LDK2010年9月", item2.getSummary());
 		assertEquals(null, item2.getDatePublished());
-		assertEquals(null, item2.getAuthor());
+		assertEquals(author, item2.getAuthor());
 	}
 
 	@Test
@@ -152,7 +154,7 @@ public class ItemTests
 
 		final Author author = new Author("e-penser");
 
-		final Item item0 = new Item(feed.getEntries().get(0));
+		final Item item0 = new Item(feed.getEntries().get(0), feed);
 		assertEquals("yt:video:hJe5MDMWOaU", item0.getId());
 		assertEquals("https://www.youtube.com/watch?v=hJe5MDMWOaU", item0.getUrl());
 		assertEquals("Les trous noirs (1/2) - 48 - e-penser", item0.getTitle());
@@ -161,7 +163,7 @@ public class ItemTests
 		assertEquals("2020-01-23T08:09:43.000Z", dateFormat.format(item0.getDatePublished()));
 		assertEquals(author, item0.getAuthor());
 
-		final Item item1 = new Item(feed.getEntries().get(1));
+		final Item item1 = new Item(feed.getEntries().get(1), feed);
 		assertEquals("yt:video:Sk7Ia2Lsuak", item1.getId());
 		assertEquals("https://www.youtube.com/watch?v=Sk7Ia2Lsuak", item1.getUrl());
 		assertEquals("La migraine est une horreur - 47 - e-penser", item1.getTitle());
@@ -170,7 +172,7 @@ public class ItemTests
 		assertEquals("2020-01-09T15:51:58.000Z", dateFormat.format(item1.getDatePublished()));
 		assertEquals(author, item1.getAuthor());
 
-		final Item item2 = new Item(feed.getEntries().get(2));
+		final Item item2 = new Item(feed.getEntries().get(2), feed);
 		assertEquals("yt:video:1Bn50keR6UY", item2.getId());
 		assertEquals("https://www.youtube.com/watch?v=1Bn50keR6UY", item2.getUrl());
 		assertEquals("Le mathématicien nul de l'Indiana - Flash 09 - e-penser", item2.getTitle());

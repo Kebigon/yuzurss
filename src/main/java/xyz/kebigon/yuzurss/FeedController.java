@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rometools.rome.feed.synd.SyndFeed;
+
 import xyz.kebigon.yuzurss.json.Feed;
 import xyz.kebigon.yuzurss.json.Item;
 
@@ -55,6 +57,7 @@ public class FeedController
 
 	private Stream<Item> getItems(String url)
 	{
-		return client.getFeed(url).getEntries().stream().map(entry -> new Item(entry));
+		final SyndFeed feed = client.getFeed(url);
+		return feed.getEntries().stream().map(entry -> new Item(entry, feed));
 	}
 }

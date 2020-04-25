@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
 
 import lombok.Data;
 
@@ -31,7 +32,7 @@ public class Item implements Comparable<Item>
 	private Date datePublished;
 	private Author author;
 
-	public Item(SyndEntry entry)
+	public Item(SyndEntry entry, SyndFeed feed)
 	{
 		this.id = entry.getUri();
 		this.url = entry.getLink();
@@ -41,12 +42,18 @@ public class Item implements Comparable<Item>
 			contentHtml = entry.getContents().get(0).getValue();
 		if (entry.getDescription() != null)
 			summary = sanitize(entry.getDescription().getValue());
+
 		if (entry.getPublishedDate() != null)
 			this.datePublished = entry.getPublishedDate();
 		else if (entry.getUpdatedDate() != null)
 			this.datePublished = entry.getUpdatedDate();
+
 		if (!entry.getAuthor().isEmpty())
 			this.author = new Author(entry.getAuthor());
+		else if (feed.getAuthor() != null)
+			this.author = new Author(feed.getAuthor());
+		else if (feed.getTitle() != null)
+			this.author = new Author(feed.getTitle());
 
 		if (contentHtml == null && summary != null)
 			contentHtml = summary;
