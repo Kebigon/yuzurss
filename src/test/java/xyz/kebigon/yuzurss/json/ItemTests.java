@@ -111,6 +111,54 @@ public class ItemTests
 	}
 
 	@Test
+	public void testSoundCloudFeed() throws IllegalArgumentException, FeedException, IOException
+	{
+		final SyndFeedInput input = new SyndFeedInput();
+		final SyndFeed feed = input.build(new XmlReader(getClass().getResource("/soundcloud.xml")));
+
+		final Author author = new Author("The Privacy, Security, & OSINT Show");
+
+		final Item item0 = new Item(feed.getEntries().get(0), feed);
+		assertEquals("tag:soundcloud,2010:tracks/806159224", item0.getId());
+		assertEquals("https://soundcloud.com/user-98066669/167-this-week-in-privacy-osint", item0.getUrl());
+		assertEquals("167-This Week In Privacy & OSINT", item0.getTitle());
+		assertEquals(
+				"EPISODE 167-This Week In Privacy & OSINTThis week I discuss a full range of privacy & OSINT topics including COVID-19 tracking, the latest iPhoneSE, more Zoom issues, MySudo news, another reason to hide your home address, Pastebin complaints, and a new free email research API.Support for this show comes directly from my new books Extreme Privacy and Open Source Intelligence Techniques (7th Edition). More details can be found at https://inteltechniques.com/books.html.Listen to ALL episodes at https://inteltechniques.com/podcast.htmlSHOW NOTES:THIS WEEK IN PRIVACY:COVID-19 TracingiPhone SE 2Zoom Passwords for SaleZoom Cleaning: https://github.com/kris-anderson/remove-zoom-macosMySudo Android: https://twitter.com/MySudoApp/status/1253373325822345218MySudo Virtual Cards: https://support.mysudo.com/hc/en-us/articles/360043197173-What-are-MySudo-virtual-cards-and-how-do-they-work-Officer Doxing: https://www.huffpost.com/entry/ammon-bundy-protest-idaho-anti-vaxxer_n_5ea0b7d5c5b69150246cfbfcOSINT:https://www.neutrinoapi.com/account/tools/https://portswigger.net/daily-swig/pastebin-hints-at-new-research-subscription-model-after-axing-scraping-apiData Removal Workbook:https://inteltechniques.com/data/workbook.pdfAffiliate Links:VPN Considerations: https://inteltechniques.com/vpn.htmlProtonVPN: https://proton.go2cloud.org/aff_c?offer_id=6&aff_id=1519ProtonMail: http://proton.go2cloud.org/aff_c?offer_id=15&aff_id=1519PIA: https://www.privateinternetaccess.com/pages/buy-vpn/crimeinfoAmazon: https://amzn.to/339avqo",
+				item0.getContentHtml());
+		assertEquals(
+				"EPISODE 167-This Week In Privacy & OSINTThis week I discuss a full range of privacy & OSINT topics including COVID-19 tracking, the latest iPhoneSE, more Zoom issues, MySudo news, another reason to hide your home address, Pastebin complaints, and a new free email research API.Support for this show comes directly from my new books Extreme Privacy and Open Source Intelligence Techniques (7th Edition). More details can be found at https://inteltechniques.com/books.html.Listen to ALL episodes at https://inteltechniques.com/podcast.htmlSHOW NOTES:THIS WEEK IN PRIVACY:COVID-19 TracingiPhone SE 2Zoom Passwords for SaleZoom Cleaning: https://github.com/kris-anderson/remove-zoom-macosMySudo Android: https://twitter.com/MySudoApp/status/1253373325822345218MySudo Virtual Cards: https://support.mysudo.com/hc/en-us/articles/360043197173-What-are-MySudo-virtual-cards-and-how-do-they-work-Officer Doxing: https://www.huffpost.com/entry/ammon-bundy-protest-idaho-anti-vaxxer_n_5ea0b7d5c5b69150246cfbfcOSINT:https://www.neutrinoapi.com/account/tools/https://portswigger.net/daily-swig/pastebin-hints-at-new-research-subscription-model-after-axing-scraping-apiData Removal Workbook:https://inteltechniques.com/data/workbook.pdfAffiliate Links:VPN Considerations: https://inteltechniques.com/vpn.htmlProtonVPN: https://proton.go2cloud.org/aff_c?offer_id=6&aff_id=1519ProtonMail: http://proton.go2cloud.org/aff_c?offer_id=15&aff_id=1519PIA: https://www.privateinternetaccess.com/pages/buy-vpn/crimeinfoAmazon: https://amzn.to/339avqo",
+				item0.getSummary());
+		assertEquals("2020-04-24T15:09:45.000Z", dateFormat.format(item0.getDatePublished()));
+		assertEquals(author, item0.getAuthor());
+
+		final Item item1 = new Item(feed.getEntries().get(1), feed);
+		assertEquals("tag:soundcloud,2010:tracks/800868520", item1.getId());
+		assertEquals("https://soundcloud.com/user-98066669/166-home-firewalls-revisited", item1.getUrl());
+		assertEquals("166-Home Firewalls Revisited", item1.getTitle());
+		assertEquals(
+				"EPISODE 166-Home Firewalls RevisitedThis week I revisit the importance of a VPN-protected home firewall. It is the one device which is mandatory for all of my clients needing a full privacy reboot.Support for this show comes directly from my new books Extreme Privacy and Open Source Intelligence Techniques (7th Edition). More details can be found at https://inteltechniques.com/books.html.Listen to ALL episodes at https://inteltechniques.com/podcast.htmlSHOW NOTES:HOME FIREWALLS REVISITED:https://inteltechniques.com/firewall/Data Removal Workbook:https://inteltechniques.com/data/workbook.pdfAffiliate Links:VPN Considerations: https://inteltechniques.com/vpn.htmlProtonVPN: https://proton.go2cloud.org/aff_c?offer_id=6&aff_id=1519ProtonMail: http://proton.go2cloud.org/aff_c?offer_id=15&aff_id=1519PIA: https://www.privateinternetaccess.com/pages/buy-vpn/crimeinfoAmazon: https://amzn.to/339avqoSilent Pocket: https://silent-pocket.com/discount/IntelTechniques",
+				item1.getContentHtml());
+		assertEquals(
+				"EPISODE 166-Home Firewalls RevisitedThis week I revisit the importance of a VPN-protected home firewall. It is the one device which is mandatory for all of my clients needing a full privacy reboot.Support for this show comes directly from my new books Extreme Privacy and Open Source Intelligence Techniques (7th Edition). More details can be found at https://inteltechniques.com/books.html.Listen to ALL episodes at https://inteltechniques.com/podcast.htmlSHOW NOTES:HOME FIREWALLS REVISITED:https://inteltechniques.com/firewall/Data Removal Workbook:https://inteltechniques.com/data/workbook.pdfAffiliate Links:VPN Considerations: https://inteltechniques.com/vpn.htmlProtonVPN: https://proton.go2cloud.org/aff_c?offer_id=6&aff_id=1519ProtonMail: http://proton.go2cloud.org/aff_c?offer_id=15&aff_id=1519PIA: https://www.privateinternetaccess.com/pages/buy-vpn/crimeinfoAmazon: https://amzn.to/339avqoSilent Pocket: https://silent-pocket.com/discount/IntelTechniques",
+				item1.getSummary());
+		assertEquals("2020-04-17T15:05:40.000Z", dateFormat.format(item1.getDatePublished()));
+		assertEquals(author, item1.getAuthor());
+
+		final Item item2 = new Item(feed.getEntries().get(2), feed);
+		assertEquals("tag:soundcloud,2010:tracks/795379366", item2.getId());
+		assertEquals("https://soundcloud.com/user-98066669/165-what-amazon-twitter-knows-about-you-and-me", item2.getUrl());
+		assertEquals("165-What Amazon & Twitter Knows About You (and Me)", item2.getTitle());
+		assertEquals(
+				"This week I analyze the data I received from Twitter and Amazon in reference to my accounts. I found a few surprises...Support for this show comes directly from my new books Extreme Privacy and Open Source Intelligence Techniques (7th Edition). More details can be found at https://inteltechniques.com/books.html.Listen to ALL episodes at https://inteltechniques.com/podcast.htmlSHOW NOTES:WHAT AMAZON & TWITTER KNOWS ABOUT YOU (AND ME):https://help.twitter.com/en/safety-and-security/data-through-partnershipshttps://www.amazon.com/gp/help/customer/display.html?nodeId=G5NBVNN2RHXD5BUWhttps://www.amazon.com/gp/help/customer/display.html?nodeId=GDK92DNLSGWTV6MPData Removal Workbook:https://inteltechniques.com/data/workbook.pdfAffiliate Links:VPN Considerations: https://inteltechniques.com/vpn.htmlProtonVPN: https://proton.go2cloud.org/aff_c?offer_id=6&aff_id=1519ProtonMail: http://proton.go2cloud.org/aff_c?offer_id=15&aff_id=1519PIA: https://www.privateinternetaccess.com/pages/buy-vpn/crimeinfoAmazon: https://amzn.to/339avqoSilent Pocket: https://silent-pocket.com/discount/IntelTechniques",
+				item2.getContentHtml());
+		assertEquals(
+				"This week I analyze the data I received from Twitter and Amazon in reference to my accounts. I found a few surprises...Support for this show comes directly from my new books Extreme Privacy and Open Source Intelligence Techniques (7th Edition). More details can be found at https://inteltechniques.com/books.html.Listen to ALL episodes at https://inteltechniques.com/podcast.htmlSHOW NOTES:WHAT AMAZON & TWITTER KNOWS ABOUT YOU (AND ME):https://help.twitter.com/en/safety-and-security/data-through-partnershipshttps://www.amazon.com/gp/help/customer/display.html?nodeId=G5NBVNN2RHXD5BUWhttps://www.amazon.com/gp/help/customer/display.html?nodeId=GDK92DNLSGWTV6MPData Removal Workbook:https://inteltechniques.com/data/workbook.pdfAffiliate Links:VPN Considerations: https://inteltechniques.com/vpn.htmlProtonVPN: https://proton.go2cloud.org/aff_c?offer_id=6&aff_id=1519ProtonMail: http://proton.go2cloud.org/aff_c?offer_id=15&aff_id=1519PIA: https://www.privateinternetaccess.com/pages/buy-vpn/crimeinfoAmazon: https://amzn.to/339avqoSilent Pocket: https://silent-pocket.com/discount/IntelTechniques",
+				item2.getSummary());
+		assertEquals("2020-04-10T15:11:00.000Z", dateFormat.format(item2.getDatePublished()));
+		assertEquals(author, item2.getAuthor());
+	}
+
+	@Test
 	public void testSuumoFeed() throws IllegalArgumentException, FeedException, IOException
 	{
 		final SyndFeedInput input = new SyndFeedInput();
